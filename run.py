@@ -37,7 +37,7 @@ for url in urls:
     print ("[" + str(attempt) + "/" + str(len(urls)) + "] Fetching...", end = " ")
     sys.stdout.flush()
     try:
-        # try to fetch the URL and stored in case of a success
+        # try to fetch the URL and store it in case of a success
         response = urllib2.urlopen(url)
         f = open(fileName, 'wb')
         f.write(response.read())
