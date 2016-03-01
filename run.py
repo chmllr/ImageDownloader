@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import urllib
 import uuid
@@ -13,6 +14,7 @@ with open(args['urls']) as fileHandler:
     urls = map(lambda line: line.strip(), fileHandler.readlines())
 
 # download images
+progress = 0
 for url in urls:
     # note: it would be fatal to extract the file name from the URL and use it as a local file name due to
     # different URLs with the same file name! As no explicit requirement about the file name is known,
@@ -21,5 +23,7 @@ for url in urls:
     # in case if we couldn't guess (!) an extension
     if (len(extension) != 3): extension = "dat"
     fileName = args['output'] + "/" + str(uuid.uuid1()) + "." + extension
-    print ("Storing " + url + " as " + fileName + "...")
+    print ("[" + str(progress) + "/" + str(len(urls)) + "]", end = " ")
+    print ("Storing " + url + " as " + fileName + " ...")
     urllib.urlretrieve(url, fileName)
+    progress = progress + 1
