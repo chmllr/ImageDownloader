@@ -28,10 +28,10 @@ fetched = 0
 for url in urls:
     # note: it would be fatal to extract the file name from the URL and use it as a local file name due to
     # different URLs with the same file name! As no explicit requirement about the file name is known,
-    # we generate a GUID string for every lcoal file name.
+    # we generate a GUID string for every local file name.
     extension = url.split(".")[-1]
     # in case if we couldn't guess (!) an extension
-    if (len(extension) != 3): extension = "dat"
+    if (len(extension) == 0 or len(extension) > 4): extension = "dat"
     fileName = outputDirectory + "/" + str(uuid.uuid1()) + "." + extension
     # inform user about what's going on
     print ("[" + str(attempt) + "/" + str(len(urls)) + "] Fetching...", end = " ")
