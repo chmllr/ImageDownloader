@@ -1,6 +1,6 @@
 from __future__ import print_function
 import argparse
-import urllib
+import urllib2
 import uuid
 
 # parse all command line arguments
@@ -23,7 +23,13 @@ for url in urls:
     # in case if we couldn't guess (!) an extension
     if (len(extension) != 3): extension = "dat"
     fileName = args['output'] + "/" + str(uuid.uuid1()) + "." + extension
-    print ("[" + str(progress) + "/" + str(len(urls)) + "]", end = " ")
-    print ("Storing " + url + " as " + fileName + " ...")
-    urllib.urlretrieve(url, fileName)
+    print ("[" + str(progress) + "/" + str(len(urls)) + "] Storing file...", end = " ")
+    try:
+        response = urllib2.urlopen(url)
+        f = open(fileName, 'wb')
+        f.write(response.read())
+        f.close()
+        print ("Stored " + url + " as " + fileName + " ...")
+    except urllib2.URLError, e:
+        print ("Failed with " + url + ": " + str(e))
     progress = progress + 1
