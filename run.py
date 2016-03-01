@@ -5,3 +5,4 @@ parser.add_argument('--urls', help='path to the text file with URLs', required=T
 parser.add_argument('--output', help='directory where downloaded images should be stored', required=True)
 
 args = vars(parser.parse_args());
+
