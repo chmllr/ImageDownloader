@@ -1,6 +1,8 @@
 # ImageDownloader
 
 A simple synchronous script for downloading of images stored in a flat list in a text file. 
+All URLs are assumed to be valid file URLs with valid file names.
+In case of missing file extensions, the default extension of a saved file will be `dat`.
 
 ## Usage
 
