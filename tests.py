@@ -19,6 +19,8 @@ def testURLparsing():
         instance = downloader.Downloader("/test/path/file3.txt", "output")
         assert instance.urls == ["http://host.com/file.png", "http://host.com/file2.png", "http://host.com/file3.png"]
 
+# we don't want to unit test the urllib2 as it's the task of the lib developers,
+# but we want to ensure, the urllib2.urlopen is called on the expected inputs!
 @patch('downloader.urllib2.urlopen')
 def testURLCalling(mocked_urlopen):
     content1 = "http://host.com/file.png\nhttp://host.com/file2.png"
