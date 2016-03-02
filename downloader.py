@@ -7,9 +7,10 @@ class Downloader():
 
     def __init__(self, fileName, outputDirectory):
         self.outputDirectory = outputDirectory        
-        # read and trim all URLs
+        # read URLs, trim, skip empty strings
         with open(fileName) as fileHandler:
             self.urls = map(lambda line: line.strip(), fileHandler.readlines())
+            self.urls = filter(None, self.urls)
 
     def downloadSync(self):
         # download images
