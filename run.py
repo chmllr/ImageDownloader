@@ -9,13 +9,13 @@ import os
 parser = argparse.ArgumentParser(description='Downloads images stored in a text file as a flat list of URLs.')
 parser.add_argument('--urls', help='path to the text file with URLs', required=True)
 parser.add_argument('--output', help='directory where downloaded images should be stored', required=True)
-args = vars(parser.parse_args());
+args = vars(parser.parse_args())
 
 outputDirectory = args['output']
 
 # are we allowed to run?
 if (not os.path.isdir(outputDirectory) or not os.path.exists(outputDirectory)):
-    print (outputDirectory + " does not exists or is not a directory")
+    print(outputDirectory + " does not exists or is not a directory")
     sys.exit(1)
 
 # read and trim all URLs
@@ -34,7 +34,7 @@ for url in urls:
     if (len(extension) == 0 or len(extension) > 4): extension = "dat"
     fileName = outputDirectory + "/" + str(uuid.uuid1()) + "." + extension
     # inform user about what's going on
-    print ("[" + str(attempt) + "/" + str(len(urls)) + "] Fetching...", end = " ")
+    print("[" + str(attempt) + "/" + str(len(urls)) + "] Fetching...", end = " ")
     sys.stdout.flush()
     try:
         # try to fetch the URL and store it in case of a success
@@ -42,10 +42,11 @@ for url in urls:
         f = open(fileName, 'wb')
         f.write(response.read())
         f.close()
-        print ("Stored " + url + " as " + fileName)
+        print("Stored " + url + " as " + fileName)
         fetched = fetched + 1
     except urllib2.URLError, e:
-        print ("Failed with " + url + ": " + str(e))
+        print("Failed with " + url + ": " + str(e))
     attempt = attempt + 1
-    
-print ("Successfully fetched {0} files from {1}".format(fetched, attempt))
+
+print()
+print("Successfully fetched {0} files from {1}".format(fetched, attempt))
