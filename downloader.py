@@ -5,14 +5,14 @@ import sys
 
 class Downloader():
 
-    def __init__(self, fileName, outputDirectory):
-        self.outputDirectory = outputDirectory        
+    def __init__(self, file_name, output_directory):
+        self.output_directory = output_directory        
         # read URLs, trim, skip empty strings
-        with open(fileName) as fileHandler:
-            self.urls = map(lambda line: line.strip(), fileHandler.readlines())
+        with open(file_name) as file_handler:
+            self.urls = map(lambda line: line.strip(), file_handler.readlines())
             self.urls = filter(None, self.urls)
 
-    def downloadSync(self):
+    def download(self):
         # download images
         attempts = 0
         fetched = 0
@@ -24,17 +24,17 @@ class Downloader():
             extension = url.split(".")[-1]
             # in case if we couldn't guess (!) an extension
             if (len(extension) == 0 or len(extension) > 4): extension = "dat"
-            fileName = self.outputDirectory + "/" + str(uuid.uuid1()) + "." + extension
+            file_name = self.output_directory + "/" + str(uuid.uuid1()) + "." + extension
             # inform user about what's going on
             print("[" + str(attempts) + "/" + str(len(self.urls)) + "] Fetching...", end = " ")
             sys.stdout.flush()
             try:
                 # try to fetch the URL and store it in case of a success
                 response = urllib2.urlopen(url)
-                f = open(fileName, 'wb')
+                f = open(file_name, 'wb')
                 f.write(response.read())
                 f.close()
-                print("Stored " + url + " as " + fileName)
+                print("Stored " + url + " as " + file_name)
                 fetched = fetched + 1
             except Exception as e:
                 print("Failed to fetch " + url + ": " + str(e))

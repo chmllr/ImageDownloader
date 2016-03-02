@@ -1,7 +1,7 @@
 from mock import patch, mock_open, call
 import downloader
 
-def testURLparsing():
+def test_URL_parsing():
     # case 1: trivial
     content1 = """http://host.com/file.png
     http://host.com/file2.png"""
@@ -22,16 +22,16 @@ def testURLparsing():
 # we don't want to unit test the urllib2 as it's the task of the lib developers,
 # but we want to ensure, the urllib2.urlopen is called on the expected inputs!
 @patch('downloader.urllib2.urlopen')
-def testURLCalling(mocked_urlopen):
-    content1 = "http://host.com/file.png\nhttp://host.com/file2.png"
+def test_URL_calling(mocked_urlopen):
+    content1 = "http://host.com/file.png\nhttp://another-host.org/file2.jpg"
     with patch("__builtin__.open", mock_open(read_data = content1)) as mock_file:
         instance = downloader.Downloader("file.txt", "output")
-        instance.downloadSync()
-        calls = [call("http://host.com/file.png"), call().read(), call("http://host.com/file2.png"), call().read()]
+        instance.download()
+        calls = [call("http://host.com/file.png"), call().read(), call("http://another-host.org/file2.jpg"), call().read()]
         mocked_urlopen.assert_has_calls(calls)
         
-        
-testURLparsing()
-testURLCalling()
+test_URL_parsing()
+test_URL_calling()
+
 print
-print "All tests executed successfuly"
+print "All tests executed successfully"
