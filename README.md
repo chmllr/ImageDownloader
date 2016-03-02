@@ -2,9 +2,16 @@
 
 A simple tool for synchronous downloading of images stored in a flat list in a text file. 
 
-Usage:
+## Usage
 
+Run:
     python run.py --urls=<path/to/file-with-urls> --output=<directory>
+
+## Testing
+
+To execute unit tests, run:
+
+    python tests.py
 
 A short integration test can be started (prerequisites: Bash, Python 2.X) as follows:
 
