@@ -1,5 +1,6 @@
 http://localhost:8787/bike1.jpg
   http://localhost:8787/bike2.jpg
+  this-is-not-even-a-url
 http://localhost:8787/bike3.jpg
     http://localhost:8787/bike4.jpg   
 http://localhost:8787/bike5

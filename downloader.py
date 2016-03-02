@@ -36,6 +36,6 @@ class Downloader():
                 f.close()
                 print("Stored " + url + " as " + fileName)
                 fetched = fetched + 1
-            except urllib2.URLError, e:
-                print("Failed with " + url + ": " + str(e))
+            except Exception as e:
+                print("Failed to fetch " + url + ": " + str(e))
         return (fetched, attempts)
